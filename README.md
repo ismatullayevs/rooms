@@ -5,6 +5,12 @@ Run the server:
 python server/main.py
 ```
 
+Crate .env file with HOST and PORT of your server:
+```.env
+HOST="0.0.0.0"
+PORT=8000
+```
+
 Run `create` to create a room:
 ```bash
 python cli/main.py create friends
