@@ -163,7 +163,7 @@ def handle_client(client_socket, address):
                     'type': 'message',
                     'sender': data['nickname'],
                     'message': data['message'],
-                }).encode(), [client_socket])
+                }).encode())
 
         except socket.timeout:
             continue

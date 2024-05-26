@@ -4,6 +4,8 @@ import sys
 import threading
 from dotenv import load_dotenv
 import json
+import curses
+from format import render
 
 load_dotenv()
 
@@ -21,6 +23,7 @@ client_socket.connect((HOST, PORT))
 client_socket.settimeout(1.0)
 
 stop_event = threading.Event()
+messages = []
 
 def receive_messages():
     while not stop_event.is_set():
@@ -34,10 +37,10 @@ def receive_messages():
                 print(f"Error: {data['message']}\r")
 
             if data['type'] == 'message':
-                print(f"{data['sender']}: {data['message']}\r")
+                messages.append(f"{data['sender']}: {data['message']}\r")
 
             if data['type'] == 'server_message':
-                print(f"------- {data['message']} -------\r")
+                messages.append(f"------- {data['message']} -------\r")
 
         except socket.timeout:
             continue
@@ -68,19 +71,10 @@ def main():
         'nickname': nickname,
     }).encode())
 
+    import time
+    time.sleep(.05)
     try:
-        while True:
-            message = input()
-            print(message)
-            if message.lower() == 'exit':
-                break
-
-            client_socket.send(json.dumps({
-                'type': 'message',
-                'room': room_name,
-                'nickname': nickname,
-                'message': message,
-            }).encode())
+        curses.wrapper(render, messages, room_name, nickname, client_socket)
     except KeyboardInterrupt:
         pass
 
