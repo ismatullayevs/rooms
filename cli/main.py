@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 import json
 import curses
 from format import render
+import time
+
 
 load_dotenv()
 
@@ -52,6 +54,7 @@ def receive_messages():
 
     client_socket.close()
     print("Connection closed.")
+    stop_event.set()
 
 def main():
     receive_thread = threading.Thread(target=receive_messages)
@@ -71,10 +74,9 @@ def main():
         'nickname': nickname,
     }).encode())
 
-    import time
     time.sleep(.05)
     try:
-        curses.wrapper(render, messages, room_name, nickname, client_socket)
+        curses.wrapper(render, messages, room_name, nickname, client_socket, stop_event)
     except KeyboardInterrupt:
         pass
 

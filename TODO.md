@@ -1,0 +1,5 @@
+- [ ] Use encrypted protocol
+- [ ] Add login/registration
+- [ ] Make nicknames unique globally (not just in rooms)
+- [ ] Use db
+- [ ] Add asyncio

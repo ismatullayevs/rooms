@@ -1,7 +1,7 @@
 import curses
 import json
 
-def render(stdscr, messages, room_name, nickname, socket):
+def render(stdscr, messages, room_name, nickname, socket, stop_event):
     stdscr.clear()
     stdscr.nodelay(True)
     stdscr.timeout(10)
@@ -12,7 +12,7 @@ def render(stdscr, messages, room_name, nickname, socket):
     
     input_buffer = ''
     
-    while True:
+    while not stop_event.is_set():
         height, width = stdscr.getmaxyx()
         
         display_height = height - 2
