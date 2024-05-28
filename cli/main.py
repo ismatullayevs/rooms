@@ -27,6 +27,7 @@ client_socket.settimeout(1.0)
 stop_event = threading.Event()
 messages = []
 
+
 def receive_messages():
     while not stop_event.is_set():
         try:
@@ -56,6 +57,7 @@ def receive_messages():
     print("Connection closed.")
     stop_event.set()
 
+
 def main():
     receive_thread = threading.Thread(target=receive_messages)
     receive_thread.start()
@@ -76,7 +78,8 @@ def main():
 
     time.sleep(.05)
     try:
-        curses.wrapper(render, messages, room_name, nickname, client_socket, stop_event)
+        curses.wrapper(render, messages, room_name,
+                       nickname, client_socket, stop_event)
     except KeyboardInterrupt:
         pass
 
@@ -84,6 +87,7 @@ def main():
     stop_event.set()
     receive_thread.join()
     client_socket.close()
+
 
 if __name__ == '__main__':
     main()
