@@ -91,8 +91,7 @@ def handle_client(client_socket, address):
 
                 nickname, roomname = data['nickname'], data['room']
                 rooms[data['room']].append((data['nickname'], client_socket))
-                print(f"User '{data['nickname']}' joined room '{
-                      data['room']}'.")
+                print(f"User '{data['nickname']}' joined room '{data['room']}'.")
                 print(rooms)
                 broadcast(data['room'], json.dumps({
                     'type': 'server_message',
@@ -131,8 +130,7 @@ def handle_client(client_socket, address):
                     'message': f"Room '{data['room']}' created.",
                 }).encode())
                 rooms[data['room']].append((data['nickname'], client_socket))
-                print(f"User '{data['nickname']}' joined room '{
-                      data['room']}'.")
+                print(f"User '{data['nickname']}' joined room '{data['room']}'.")
                 client_socket.send(json.dumps({
                     'type': 'server_message',
                     'message': f"'{data['nickname']}' joined room '{data['room']}'.",
