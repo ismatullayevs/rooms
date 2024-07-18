@@ -5,7 +5,7 @@ Run the server:
 python server/main.py
 ```
 
-Crate .env file with HOST and PORT of your server:
+Create .env file with HOST and PORT of your server:
 ```.env
 HOST="0.0.0.0"
 PORT=8000
